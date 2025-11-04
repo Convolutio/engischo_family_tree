@@ -1,0 +1,9 @@
+name: family-tree
+channels:
+  - conda-forge
+dependencies:
+  - graphviz>=13.1.2,<14.0
+  - python=3.13
+  - imagemagick>=7.1.2_5,<8.0
+  - make
+  - inotify-tools

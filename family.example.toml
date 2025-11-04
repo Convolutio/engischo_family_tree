@@ -1,0 +1,62 @@
+# --- TREE GENERAL PARAMS ---
+
+default_picture="default.jpg"
+max_picture_side_length=160  # in pixels
+text_height=30
+font_color="#118218"
+# distance between an ancestor node and his sons
+edge_length=80
+# distance between two nodes of the same depth
+node_sep_distance=80
+# default node color in the subtrees with no specified scale color
+default_node_color = "#cacaca"  # lol
+# if we read from top to bottom or from left to right
+tb_randkir=true
+# the default depth in the tree of the root member of an independant subtree
+default_grad_year=2026
+
+# --- TREE GENERAL PARAMS ---
+
+# --- MEMBERS --- ...
+
+[[member]]
+id = "jdupont"
+name = "Jean Dupont"
+# the subtree of Jean Dupont will be suitably aligned
+initial_grad_year = 2027
+# define the color scale for the subtree of Jean Dupont
+color_scale = { start = "#FAD723", end = "#F5DE6C" }
+
+[[member]]
+id = "ddupont"
+name = "Damien Dupont"
+ancestor = "jdupont"
+
+# toto is the first member of its tree => its grad year is the default
+[[member]]
+id = "toto"
+name = "Toto"
+picture = "toto.png"
+
+[[member]]
+id = "random"
+name = "Random guy"
+picture = "random-guy.png"
+color_scale = { start = "#F53D8D", end = "#FF99EC"}
+ancestor = "toto"
+
+[[member]]
+id = "other-random"
+name = "Another random"
+ancestor = "random"
+
+[[member]]
+id = "random-again"
+name = "A random again"
+ancestor = "random"
+
+[[member]]
+id = "a-nobody"
+name = "A nobody"
+ancestor = "random-again"
+

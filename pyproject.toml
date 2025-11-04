@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eirb_family_tree"
+version = "0.1.0"
+description = "ENSEIRB Family Tree generator"
+requires-python = ">=3.13"
+dependencies = [
+  "graphviz>=0.21,<1.0",
+  "pydantic>=2.12.0,<3.0",
+  "treelib>=1.7.1,<2.0",
+  "click>=8.3.0,<9.0",
+]
+
+[project.scripts]
+eirbtree = "familytree.cli:main"
+eirbtree-generate = "familytree.cli:generate_tree"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4.2,<9.0.0",
+  "mypy>=1.18.2,<2.0.0",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
