@@ -1,0 +1,5 @@
+include src/familytree/Makefile
+include src/familytree/.env.example
+include src/familytree/img.example/*
+include src/familytree/family.example.toml
+

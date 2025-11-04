@@ -6,7 +6,7 @@ from .graphviz_gen import gen_with_graphviz
 from .tree_gen import FamilyTree
 from .tree_viz_config import load_tree_from_config
 
-_makefile_path = str(Path(__file__).parent.parent.parent / "Makefile")
+_makefile_path = str(Path(__file__).parent / "Makefile")
 
 
 def _run_makefile(target: str | list[str] | None = None):
