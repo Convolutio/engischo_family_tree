@@ -5,7 +5,7 @@ name = "engischo_family_tree"
 # TODO: inotify tools is only available on linux
 platforms = ["linux-64"]
 preview = ["pixi-build"]
-version = "0.1.0"
+version = "1.0.0"
 
 [dependencies]
 eirb_family_tree = { path = "." }

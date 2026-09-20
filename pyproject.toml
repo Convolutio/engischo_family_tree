@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eirb-family-tree"
-version = "0.1.0"
+version = "1.0.0"
 description = "ENSEIRB Family Tree generator"
 requires-python = ">=3.13"
 dependencies = [
