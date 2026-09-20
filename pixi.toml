@@ -34,3 +34,10 @@ graphviz = ">=13.1.2,<14.0"
 imagemagick = ">=7.1.2_5,<8.0"
 make = "*"
 inotify-tools = "*"
+
+[feature.dev.dependencies]
+pytest = "*"
+mypy = "*"
+
+[environments]
+dev = ["dev"]
