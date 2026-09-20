@@ -1,6 +1,6 @@
 from typing import cast
-from familytree.infer_promo import EarlierGradYear, GraduationYearAlignator
-from familytree.tree_utils import (
+from eirb_family_tree.infer_promo import EarlierGradYear, GraduationYearAlignator
+from eirb_family_tree.tree_utils import (
     SENTINEL_ID,
     BaseSettingData,
     ColorizedNodeData,
@@ -14,7 +14,6 @@ type TestIndSubtree = IndependantSubTree[BaseSettingData, None, EarlierGradYear]
 
 def init_test_tree():
     return init_tree(ColorizedNodeData[BaseSettingData, None])
-
 
 
 def test_promo_inference():
@@ -45,6 +44,9 @@ def test_promo_inference():
     ]
     unspecified_subtree_idx = 0
     a = GraduationYearAlignator(2023)
-    assert a.infer_earlier_grad_year_for_unspecified(
-        dfs_ordered_subtrees, unspecified_subtree_idx
-    ) == 2024
+    assert (
+        a.infer_earlier_grad_year_for_unspecified(
+            dfs_ordered_subtrees, unspecified_subtree_idx
+        )
+        == 2024
+    )

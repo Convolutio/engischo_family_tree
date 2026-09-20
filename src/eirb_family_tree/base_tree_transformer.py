@@ -3,7 +3,7 @@ from typing import Callable
 
 from pydantic import BaseModel
 
-from familytree.tree_utils import (
+from eirb_family_tree.tree_utils import (
     BaseSettingData,
     ColorizedNodeData,
     IndependantSubTree,

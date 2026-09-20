@@ -1,7 +1,4 @@
 __pycache__
-.venv
-build
-eirb_family_tree.egg-info
 
 .env
 family.toml
@@ -9,3 +6,7 @@ img
 _rescaled
 out/
 *.tar.gz
+
+# pixi environments
+.pixi/*
+!.pixi/config.toml

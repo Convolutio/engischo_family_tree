@@ -1,8 +1,11 @@
 from typing import Literal, override
 from pydantic import BaseModel
 
-from familytree.base_tree_transformer import BaseTreeTransformer, ColorationFunction
-from familytree.tree_utils import (
+from eirb_family_tree.base_tree_transformer import (
+    BaseTreeTransformer,
+    ColorationFunction,
+)
+from eirb_family_tree.tree_utils import (
     BaseSettingData,
     ColorizedNodeData,
     TypedTree,
