@@ -33,7 +33,7 @@ def init_workspace():
 
 @main.command()
 def build():
-    """Build the family tree output files from the data files."""
+    """Build the family tree output files from all the data files."""
     _run_makefile("build")
 
 
@@ -68,7 +68,7 @@ def clean(rescaled_images: bool):
     _run_makefile(targets)
 
 
-@click.command()
+@main.command()
 @click.argument("output_filename")
 @click.argument("tree_config_file")
 @click.argument("image_dir")

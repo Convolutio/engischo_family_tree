@@ -1,10 +1,11 @@
+import argparse
 from pathlib import Path
-from familytree.graphviz_gen import gen_with_graphviz
-from familytree.tree_gen import FamilyTree
-from familytree.tree_viz_config import load_tree_from_config
 from typing import cast
 
-import argparse
+from eirb_family_tree.graphviz_gen import gen_with_graphviz
+from eirb_family_tree.tree_gen import FamilyTree
+from eirb_family_tree.tree_viz_config import load_tree_from_config
+
 
 def get_cli_options():
     parser = argparse.ArgumentParser(description="Eirb Family tree Generator")
@@ -20,4 +21,3 @@ if __name__ == "__main__":
     tree_config = load_tree_from_config(tree_config_file)
     generated_family_tree = FamilyTree(tree_config)
     gen_with_graphviz(generated_family_tree, tree_config, image_dir, filename)
-

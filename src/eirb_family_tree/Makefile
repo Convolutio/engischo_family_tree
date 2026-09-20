@@ -23,7 +23,7 @@ build: $(BUILD_DIR)/$(OUTPUT).svg $(BUILD_DIR)/$(OUTPUT).png \
 
 $(BUILD_DIR)/$(OUTPUT).svg $(BUILD_DIR)/$(OUTPUT).png \
 	$(BUILD_DIR)/$(OUTPUT): $(FAMILY_DATA) $(IMAGES_RESCALED)
-	eirbtree-generate $(OUTPUT) $(FAMILY_DATA) $(IMAGES_RESCALED_DIR)
+	eirbtree generate-tree $(OUTPUT) $(FAMILY_DATA) $(IMAGES_RESCALED_DIR)
 
 $(IMAGES_RESCALED_DIR)/%: $(IMAGES_SRC_DIR)/%
 	magick $^ -resize 160x160 $@
