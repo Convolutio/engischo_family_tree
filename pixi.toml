@@ -12,6 +12,8 @@ eirb_family_tree = { path = "." }
 
 [tasks]
 eirbtree = "eirbtree"
+test = { cmd = "pytest", default-environment = "dev" }
+typecheck = { cmd = "mypy ./src/", default-environment = "dev" }
 
 [package]
 name = "eirb_family_tree"
