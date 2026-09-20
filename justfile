@@ -15,6 +15,9 @@ install-dev:
 source-env-dev:
     @echo "pixi shell -e dev"
 
+build:
+    pixi publish
+
 [group("test")]
 type_check:
 	@pixi run typecheck

@@ -1,11 +1,9 @@
 # 🖥️ Engineering school Family tree generator 🌳⚙️
 
-Here is library to compose its family tree from a TOML file and a directory
+Here is a library to compose its family tree from a TOML file and a directory
 with pictures.
 
-## Install
-
-This project uses Python librairies, Make and external librairies:
+This project uses Python libraries, Make and external executables:
 
 - Python >= 3.13 and its deps in the `pyproject.toml`
 - Graphviz >= 2.43.0
@@ -13,44 +11,67 @@ This project uses Python librairies, Make and external librairies:
 - Make (for efficient building)
 - inotify-tools (for the watch mode)
 
+> While only inotify-tools is used for the watch mode, this project only
+> supports linux-64 architectures.
+
 _To safely manage those dependencies_, we propose an installation with
-[`conda`](https://github.com/conda-forge/miniforge?tab=readme-ov-file#install).
-
-The Makefile target below creates a conda env called `family-tree` with the
-system deps and the built python package
+[`pixi@v0.81.0`](https://pixi.prefix.dev/v0.81.0/installation/).
 
 ```sh
-# Creates an isolated conda environment family-tree with all the project deps
-make install
+PIXI_VERSION=0.81.0 curl -fsSL https://pixi.sh/install.sh | sh
 ```
 
-To develop on the Python project or run the tests, choose this installation rule:
+## Use the library
+
+### Initiating the workspace
+
+You can set a workspace to manage your family tree with the commands below,
+inside your directory to store the data of your family tree.
+
+> Those commands are reproducible and do not require any sudo permission. Feel
+> free to directly copy/paste them in your shell, when in your directory.
 
 ```sh
-# Add pytest and let the installed familytree package be edited
-make install-dev
+# Init the pixi environment with the eirb_family_tree library ready to be used
+# as a CLI
+pixi init \
+  --channel conda-forge \
+  --platform linux-64
+pixi workspace preview add pixi-build
+#  The package is built from source in your machine
+pixi add \
+  --git https://github.com/Convolutio/engischo_family_tree.git \
+  eirb_family_tree
+
+# Use the eirbtree CLI to store an initial placeholder family tree in your directory
+pixi run eirbtree init-workspace
 ```
 
-## Build, preview and pack the output graph
-
-__Stay into your environment with the built python package:__
+Then you can edit your file. The `eirbtree` CLI allows you to build the tree,
+preview it and watch your source files to dynamically rebuild it. To use the
+CLI, do this.
 
 ```sh
-conda activate family-tree
+# Go inside your virtual environment
+pixi shell
+
+# Finally, use eirbtree as you wish
+eirbtree --help
+```
+
+### Build, preview and pack the output graph
+
+__Stay into your environment to use the CLI:__
+
+```sh
+pixi shell
 ```
 
 Then use the `eirbtree` CLI to work on your family tree.
 
-1. In another directory in your system, create all the required source files
-
-   ```sh
-   # wherever you want, e.g. in the my-awesome-family/ directory
-   eirbtree init-workspace
-   ```
-
-2. Edit the `.env` file to customize the name of the output PNG, DOT and SVG
+1. Edit the `.env` file to customize the name of the output PNG, DOT and SVG
    files
-3. Add pictures inside the `img` directory and edit the `family.toml` file.
+2. Add pictures inside the `img` directory and edit the `family.toml` file.
    `eirbtree` can watch those files for an automatic rebuild of your family
    tree with the command below
 
@@ -62,26 +83,27 @@ Then use the `eirbtree` CLI to work on your family tree.
    If you just want a single build, just run the command below
 
    ```sh
+   # in the same directory
    eirbtree build
    ```
 
-4. To preview your produced tree, just run
+3. To preview your produced tree, just run
 
    ```sh
    # in the same directory
    eirbtree preview
    ```
 
-5. To pack the tree pictures in an archive, run
+4. To pack the tree pictures in an archive, run
 
    ```sh
    # always stay in the directory of your family.toml when running eirbtree
-   eirbtree clean
+   eirbtree pack-output
    ```
 
 For details about the usage of `eirbtree`, the CLI has `--help` options.
 
-## Remove the produced files
+### Remove the produced files
 
 To remove only the produced archives and the built files:
 
@@ -90,18 +112,17 @@ To remove only the produced archives and the built files:
 eirbtree clean
 ```
 
-## Uninstall the library
+### Uninstall the library
 
 To purely remove the files produced by the virtual environment:
 
 ```sh
-# be sure to leave the conda environment before
-conda deactivate family-tree
-# remove pip installation + conda virtual environment
-make clean-deps
+# be sure to leave the pixi environment before
+# remove every local deps
+pixi clean
 ```
 
-## Family settings
+### Family settings
 
 - The picture of a member must be in the `img` directory (no constraint on the
   shape, just PNG or JPG/JPEG format --- the image will be rescaled)
@@ -134,3 +155,47 @@ make clean-deps
   # aligned with the others)
   initial_grad_year = 2028
   ```
+
+## Develop the library
+
+The library is a python package inside a pixi project.
+
+If you want to edit the library, then inside this repository you can work in the
+local pixi environment.
+
+```sh
+# Install and go into an isolated pixi environment with all the project deps
+# The python package is sourced in editable mode so the CLI can be used with the
+# edited source code
+pixi shell
+```
+
+To work with the development dependencies (mypy, pytest...), then source this
+environment instead:
+
+```sh
+# Install and go into an isolated pixi environment with all the project deps and
+# the test deps
+pixi shell -e dev
+```
+
+To build the package as in the library usage stage, run
+
+```sh
+pixi publish
+```
+
+There is also a `justfile` for lazy developers.
+
+### References
+
+- [Getting started with a Pixi workspace](https://pixi.prefix.dev/v0.81.0/first_workspace/)
+- [Develop and build a Pixi package](https://pixi.prefix.dev/v0.81.0/build/getting_started/)
+- [Develop and build a Pixi package with a python package inside its source code](https://pixi.prefix.dev/v0.81.0/build/python/)
+- [Pixi python build backend references](https://pixi.prefix.dev/v0.81.0/build/backends/pixi-build-python/)
+
+> NB: to build a python package with external deps in other languages (such as
+> graphviz, make etc.), I do not know other alternatives than pixi/conda.
+> Docker and nix are harder in the usage stage.
+> The actual caveat with Pixi is that its building features are not stable. That
+> is why it is recommended for now to use the version 0.81.0.
